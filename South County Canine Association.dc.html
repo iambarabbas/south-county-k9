@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<script src="./image-slot.js"></script>
+<style>
+  body { margin: 0; background: #0E1518; -webkit-font-smoothing: antialiased; }
+  * { box-sizing: border-box; }
+  a { color: #B98A3E; text-decoration: none; }
+  a:hover { color: #D9A94F; }
+  ::selection { background: #B98A3E; color: #0E1518; }
+</style>
+</helmet>
+
+<div style="--accent: {{ accent }}; font-family: Archivo, system-ui, sans-serif; color: #16211F; background: #F6F3EC; min-height: 100vh;">
+
+  <header style="position: sticky; top: 0; z-index: 50; background: rgba(14,21,24,0.96); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(185,138,62,0.28);">
+    <div style="max-width: 1240px; margin: 0 auto; padding: 14px 32px; display: flex; align-items: center; gap: 32px;">
+      <div onClick="{{ goHome }}" style="display: flex; align-items: center; gap: 14px; cursor: pointer;">
+        <div style="width: 46px; height: 46px; border-radius: 50%; border: 1.5px solid var(--accent); display: grid; place-items: center; flex: none; font-family: Archivo, sans-serif; font-weight: 700; font-size: 13.5px; letter-spacing: 0.04em; color: var(--accent);">SCCA</div>
+        <div style="line-height: 1.05;">
+          <div style="font-family: 'Instrument Serif', Georgia, serif; font-size: 21px; color: #F6F3EC; letter-spacing: 0.01em;">South County Canine Association</div>
+          <div style="font-size: 9.5px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(246,243,236,0.5); margin-top: 3px;">Chula Vista, California &middot; 501(c)(3)</div>
+        </div>
+      </div>
+      <nav style="margin-left: auto; display: flex; align-items: center; gap: 4px;">
+        <sc-for list="{{ nav }}" as="item" hint-placeholder-count="5">
+          <button onClick="{{ item.go }}" style="background: none; border: none; font-family: Archivo, sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; white-space: nowrap; color: {{ item.color }}; padding: 10px 14px; cursor: pointer; border-bottom: 2px solid {{ item.rule }};" style-hover="color: #F6F3EC;">{{ item.label }}</button>
+        </sc-for>
+        <button onClick="{{ goDonate }}" style="margin-left: 14px; background: var(--accent); color: #0E1518; border: none; font-family: Archivo, sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; padding: 13px 22px; cursor: pointer;" style-hover="background: #D9A94F;">Donate</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ============ HOME ============ -->
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <div>
+    <section style="position: relative; background: #0E1518; min-height: 660px; display: flex; align-items: flex-end; overflow: hidden;">
+      <div style="position: absolute; inset: 0;">
+        <image-slot style="min-width: 0" id="hero-k9" src="uploads/IMG_3620_heic.avif" shape="rect" fit="cover" placeholder="Hero photo"></image-slot>
+      </div>
+      <div style="position: absolute; inset: 0; background: linear-gradient(75deg, rgba(14,21,24,0.94) 0%, rgba(14,21,24,0.72) 46%, rgba(14,21,24,0.15) 100%); pointer-events: none;"></div>
+      <div style="position: relative; max-width: 1240px; margin: 0 auto; padding: 120px 32px 76px; width: 100%; pointer-events: none;">
+        <div style="max-width: 720px;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 26px;">
+            <div style="width: 34px; height: 1px; background: var(--accent);"></div>
+            <div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--accent); font-weight: 600;">{{ heroEyebrow }}</div>
+          </div>
+          <h1 style="font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 72px; line-height: 1.02; letter-spacing: -0.015em; color: #F6F3EC; margin: 0 0 24px; text-wrap: pretty;">{{ heroHead }}</h1>
+          <p style="font-size: 18px; line-height: 1.6; color: rgba(246,243,236,0.74); margin: 0 0 38px; max-width: 560px; text-wrap: pretty;">{{ heroSub }}</p>
+          <div style="display: flex; gap: 14px; align-items: center; pointer-events: auto;">
+            <button onClick="{{ goDonate }}" style="background: var(--accent); color: #0E1518; border: none; font-family: Archivo, sans-serif; font-weight: 700; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; padding: 18px 32px; cursor: pointer;" style-hover="background: #D9A94F;">Sponsor a K-9</button>
+            <button onClick="{{ goK9s }}" style="background: rgba(246,243,236,0.06); color: #F6F3EC; border: 1px solid rgba(246,243,236,0.28); font-family: Archivo, sans-serif; font-weight: 600; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; padding: 18px 32px; cursor: pointer;" style-hover="background: rgba(246,243,236,0.14);">Meet the dogs</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="background: #16211F; border-top: 1px solid rgba(185,138,62,0.22);">
+      <div style="max-width: 1240px; margin: 0 auto; padding: 0 32px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));">
+        <sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
+          <div style="padding: 40px 28px 42px; border-right: 1px solid rgba(246,243,236,0.09);">
+            <div style="font-family: 'Instrument Serif', Georgia, serif; font-size: 46px; line-height: 1; color: var(--accent);">{{ s.value }}</div>
+            <div style="font-size: 12.5px; line-height: 1.5; color: rgba(246,243,236,0.62); margin-top: 12px; max-width: 190px;">{{ s.label }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="background: #F6F3EC; padding: 104px 32px;">
+      <div style="max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 88px; align-items: start;">
+        <div>
+          <div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: #8A6A2C; font-weight: 600; margin-bottom: 22px;">The problem</div>
+          <h2 style="font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 46px; line-height: 1.08; letter-spacing: -0.01em; margin: 0 0 26px; color: #0E1518; text-wrap: pretty;">When the vest comes off, the bills start.</h2>
+          <p style="font-size: 17px; line-height: 1.68; color: #3D4A46; margin: 0 0 20px; text-wrap: pretty;">A police K-9 retires into the home of the handler who worked beside it. From that day forward, every X-ray, every surgery, every prescription is paid out of a handler's own pocket.</p>
+          <p style="font-size: 17px; line-height: 1.68; color: #3D4A46; margin: 0 0 34px; text-wrap: pretty;">These are working dogs with working dogs' bodies — hips, spines, teeth and joints spent on years of tracking, apprehension and deployment. Research on police K-9s shows sharply elevated rates of orthopedic and musculoskeletal disease compared with pet dogs of the same breeds.</p>
+          <div style="border-left: 2px solid var(--accent); padding: 4px 0 4px 24px;">
+            <div style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 26px; line-height: 1.35; color: #0E1518;">&ldquo;Taking care of those who took care of us.&rdquo;</div>
+          </div>
+        </div>
+        <div style="display: grid; gap: 2px; background: #E3DED2;">
+          <sc-for list="{{ costs }}" as="c" hint-placeholder-count="4">
+            <div style="background: #FFFDF8; padding: 26px 28px; display: flex; align-items: baseline; justify-content: space-between; gap: 24px;">
+              <div>
+                <div style="font-size: 15.5px; font-weight: 600; color: #0E1518;">{{ c.name }}</div>
+                <div style="font-size: 13px; color: #6C7A75; margin-top: 5px;">{{ c.note }}</div>
+              </div>
+              <div style="font-family: 'Instrument Serif', Georgia, serif; font-size: 30px; color: #0E1518; white-space: nowrap;">{{ c.cost }}</div>
+            </div>
+          </sc-for>
+          <div style="background: #0E1518; padding: 26px 28px;">
+            <div style="font-size: 13px; line-height: 1.6; color: rgba(246,243,236,0.7);">SCCA covers these costs directly with the treating veterinarian. No handler is asked to fundraise for their own dog.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="background: #FFFDF8; border-top: 1px solid #E3DED2; padding: 100px 32px;">
+      <div style="max-width: 1240px; margin: 0 auto;">
+        <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; margin-bottom: 48px;">
+          <div>
+            <div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: #8A6A2C; font-weight: 600; margin-bottom: 18px;">On the roster</div>
+            <h2 style="font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 46px; line-height: 1.06; margin: 0; color: #0E1518;">Dogs in our care right now</h2>
+          </div>
+          <button onClick="{{ goK9s }}" style="background: none; border: 1px solid #C9C2B2; color: #0E1518; font-family: Archivo, sans-serif; font-weight: 600; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; padding: 15px 24px; cursor: pointer; white-space: nowrap;" style-hover="border-color: #0E1518;">See all K-9s</button>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px;">
+          <sc-for list="{{ featured }}" as="d" hint-placeholder-count="3">
+            <div style="background: #F6F3EC; border: 1px solid #E3DED2;" style-hover="border-color: #B98A3E;">
+              <div style="position: relative; height: 300px;">
+                <image-slot style="min-width: 0" id="{{ d.slot }}" src="{{ d.src }}" shape="rect" fit="cover" placeholder="{{ d.slotHint }}"></image-slot>
+                <div style="position: absolute; top: 0; left: 0; background: #0E1518; color: var(--accent); font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; padding: 8px 12px; pointer-events: none;">{{ d.status }}</div>
+              </div>
+              <div style="padding: 24px 24px 26px;">
+                <div style="display: flex; align-items: baseline; gap: 10px;">
+                  <div style="font-family: 'Instrument Serif', Georgia, serif; font-size: 32px; line-height: 1; color: #0E1518;">{{ d.name }}</div>
+                  <div style="font-size: 12px; color: #6C7A75;">{{ d.breed }}</div>
+                </div>
+                <div style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #8A6A2C; margin-top: 12px; font-weight: 600;">{{ d.agency }}</div>
+                <div style="font-size: 13.5px; line-height: 1.6; color: #3D4A46; margin-top: 14px; min-height: 66px;">{{ d.need }}</div>
+                <div style="margin-top: 18px; border-top: 1px solid #E3DED2; padding-top: 16px;">
+                  <div style="display: flex; justify-content: space-between; font-size: 12.5px; color: #6C7A75; margin-bottom: 8px;">
+                    <span style="color: #0E1518; font-weight: 600;">{{ d.raised }} raised</span>
+                    <span>of {{ d.goal }}</span>
+                  </div>
+                  <div style="height: 4px; background: #E3DED2;">
+                    <div style="height: 4px; width: {{ d.pct }}; background: var(--accent);"></div>
+                  </div>
+                </div>
+                <button onClick="{{ goDonate }}" style="margin-top: 20px; width: 100%; background: #0E1518; color: #F6F3EC; border: none; font-family: Archivo, sans-serif; font-weight: 600; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; padding: 15px; cursor: pointer;" style-hover="background: #B98A3E; color: #0E1518;">Sponsor {{ d.name }}</button>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section style="background: #0E1518; padding: 104px 32px;">
+      <div style="max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: 420px minmax(0, 1fr); gap: 76px; align-items: center;">
+        <div style="height: 480px; position: relative;">
+          <image-slot style="min-width: 0" id="handler-photo" src="uploads/f7a1c6_562dc7a3cd2f40d6b9a5b7a677ebaa37~mv2.avif" shape="rect" fit="cover" placeholder="Handler photo"></image-slot>
+        </div>
+        <div>
+          <div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 28px;">From a handler</div>
+          <div style="font-family: 'Instrument Serif', Georgia, serif; font-size: 38px; line-height: 1.28; color: #F6F3EC; margin: 0 0 30px; text-wrap: pretty;">&ldquo;Rocco took a bite meant for me. When his knee gave out, the estimate was more than my truck is worth. SCCA called the vet and handled it. I didn&rsquo;t have to choose.&rdquo;</div>
+          <div style="font-size: 14px; color: rgba(246,243,236,0.66);">Officer R. Delgado <span style="color: rgba(246,243,236,0.34);">&nbsp;/&nbsp;</span> Handler, K-9 Rocco (Ret.)</div>
+        </div>
+      </div>
+    </section>
+
+    <section style="background: #F6F3EC; padding: 84px 32px; border-bottom: 1px solid #E3DED2;">
+      <div style="max-width: 1240px; margin: 0 auto;">
+        <div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: #8A6A2C; font-weight: 600; margin-bottom: 34px; text-align: center;">Partner agencies</div>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 14px;">
+          <sc-for list="{{ agencies }}" as="a" hint-placeholder-count="8">
+            <div style="border: 1px solid #D8D2C4; padding: 14px 22px; font-size: 13px; font-weight: 500; color: #3D4A46; background: #FFFDF8;">{{ a }}</div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section style="background: #FFFDF8; padding: 96px 32px;">
+      <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+        <h2 style="font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 54px; line-height: 1.06; margin: 0 0 22px; color: #0E1518; text-wrap: pretty;">$35 a month covers a retired K-9's medication.</h2>
+        <p style="font-size: 17.5px; line-height: 1.65; color: #3D4A46; margin: 0 0 38px;">Every dollar goes to veterinary care. SCCA is entirely volunteer-run — no salaries, no offices. Donations are tax-deductible under EIN 33-4254915.</p>
+        <div style="display: flex; gap: 14px; justify-content: center;">
+          <button onClick="{{ goDonate }}" style="background: var(--accent); color: #0E1518; border: none; font-family: Archivo, sans-serif; font-weight: 700; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; padding: 18px 34px; cursor: pointer;" style-hover="background: #D9A94F;">Give monthly</button>
+          <button onClick="{{ goDonate }}" style="background: none; color: #0E1518; border: 1px solid #C9C2B2; font-family: Archivo, sans-serif; font-weight: 600; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; padding: 18px 34px; cursor: pointer;" style-hover="border-color: #0E1518;">Give once</button>
+        </div>
+      </div>
+    </section>
+  </div>
+  </sc-if>
+
+  <!-- ============ K9s ============ -->
+  <sc-if value="{{ isK9s }}" hint-placeholder-val="{{ false }}">
+  <div>
+    <section style="background: #0E1518; padding: 88px 32px 76px;">
+      <div style="max-width: 1240px; margin: 0 auto;">
+        <div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 22px;">The roster</div>
+        <h1 style="font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 64px; line-height: 1.02; margin: 0 0 22px; color: #F6F3EC;">Our K-9s</h1>
+        <p style="font-size: 18px; line-height: 1.6; color: rgba(246,243,236,0.7); max-width: 620px; margin: 0;">Every dog here worked a street in South County. Their handlers keep them; we keep them healthy.</p>
+      </div>
+    </section>
+    <section style="background: #F6F3EC; padding: 64px 32px 104px;">
+      <div style="max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px;">
+        <sc-for list="{{ roster }}" as="d" hint-placeholder-count="6">
+          <div style="background: #FFFDF8; border: 1px solid #E3DED2;" style-hover="border-color: #B98A3E;">
+            <div style="position: relative; height: 280px;">
+              <image-slot style="min-width: 0" id="{{ d.slot }}" src="{{ d.src }}" shape="rect" fit="cover" placeholder="{{ d.slotHint }}"></image-slot>
+            </div>
+            <div style="padding: 24px;">
+              <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px;">
+                <div style="font-family: 'Instrument Serif', Georgia, serif; font-size: 32px; line-height: 1; color: #0E1518;">{{ d.name }}</div>
+                <div style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #6C7A75;">{{ d.years }}</div>
+              </div>
+              <div style="font-size: 12.5px; color: #6C7A75; margin-top: 10px;">{{ d.breed }} &middot; {{ d.agency }}</div>
+              <div style="font-size: 13.5px; line-height: 1.6; color: #3D4A46; margin-top: 16px;">{{ d.need }}</div>
+              <div style="margin-top: 18px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #E3DED2; padding-top: 16px; gap: 12px;">
+                <div style="font-size: 12.5px; color: #6C7A75;"><span style="color: #0E1518; font-weight: 600;">{{ d.raised }}</span> of {{ d.goal }}</div>
+                <button onClick="{{ goDonate }}" style="background: none; border: 1px solid #C9C2B2; color: #0E1518; font-family: Archivo, sans-serif; font-weight: 600; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; padding: 11px 16px; cursor: pointer;" style-hover="background: #0E1518; color: #F6F3EC;">Sponsor</button>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </div>
+  </sc-if>
+
+  <!-- ============ MEMORIAM ============ -->
+  <sc-if value="{{ isMemoriam }}" hint-placeholder-val="{{ false }}">
+  <div style="background: #0E1518;">
+    <section style="padding: 104px 32px 72px; text-align: center;">
+      <div style="max-width: 760px; margin: 0 auto;">
+        <div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 26px;">End of watch</div>
+        <h1 style="font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 64px; line-height: 1.04; margin: 0 0 24px; color: #F6F3EC;">In Memoriam</h1>
+        <p style="font-size: 17.5px; line-height: 1.7; color: rgba(246,243,236,0.66); margin: 0;">They finished their watch in the homes of the people they worked for. We keep their names here.</p>
+      </div>
+    </section>
+    <section style="padding: 0 32px 112px;">
+      <div style="max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px 32px;">
+        <sc-for list="{{ memorial }}" as="m" hint-placeholder-count="6">
+          <div style="text-align: center;">
+            <div style="height: 320px; position: relative; border: 1px solid rgba(246,243,236,0.14);">
+              <image-slot style="min-width: 0" id="{{ m.slot }}" shape="rect" fit="cover" placeholder="{{ m.slotHint }}"></image-slot>
+            </div>
+            <div style="font-family: 'Instrument Serif', Georgia, serif; font-size: 34px; color: #F6F3EC; margin-top: 22px; line-height: 1;">{{ m.name }}</div>
+            <div style="font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-top: 12px;">{{ m.years }}</div>
+            <div style="font-size: 13px; color: rgba(246,243,236,0.56); margin-top: 10px; line-height: 1.6;">{{ m.agency }}<br />{{ m.note }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </div>
+  </sc-if>
+
+  <!-- ============ DONATE ============ -->
+  <sc-if value="{{ isDonate }}" hint-placeholder-val="{{ false }}">
+  <div>
+    <section style="background: #0E1518; padding: 84px 32px 72px;">
+      <div style="max-width: 1240px; margin: 0 auto;">
+        <div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 22px;">Support a K-9</div>
+        <h1 style="font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 62px; line-height: 1.02; margin: 0 0 20px; color: #F6F3EC; max-width: 760px; text-wrap: pretty;">Pay a retired K-9's vet bill.</h1>
+        <p style="font-size: 18px; line-height: 1.6; color: rgba(246,243,236,0.7); max-width: 600px; margin: 0;">Monthly gifts are what let us say yes to an emergency at 2 a.m. without checking the balance first.</p>
+      </div>
+    </section>
+    <section style="background: #F6F3EC; padding: 72px 32px 104px;">
+      <div style="max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 64px; align-items: start;">
+        <div style="background: #FFFDF8; border: 1px solid #E3DED2; padding: 40px;">
+          <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2px; background: #E3DED2; padding: 2px; margin-bottom: 32px;">
+            <button onClick="{{ setMonthly }}" style="background: {{ monthlyBg }}; color: {{ monthlyFg }}; border: none; font-family: Archivo, sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: 0.12em; text-transform: uppercase; padding: 15px; cursor: pointer;">Monthly</button>
+            <button onClick="{{ setOnce }}" style="background: {{ onceBg }}; color: {{ onceFg }}; border: none; font-family: Archivo, sans-serif; font-weight: 600; font-size: 12.5px; letter-spacing: 0.12em; text-transform: uppercase; padding: 15px; cursor: pointer;">One time</button>
+          </div>
+          <div style="display: grid; gap: 10px;">
+            <sc-for list="{{ tiers }}" as="t" hint-placeholder-count="4">
+              <button onClick="{{ t.pick }}" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; text-align: left; background: {{ t.bg }}; border: 1px solid {{ t.border }}; padding: 20px 22px; cursor: pointer; font-family: Archivo, sans-serif;">
+                <div>
+                  <div style="font-family: 'Instrument Serif', Georgia, serif; font-size: 28px; line-height: 1; color: {{ t.fg }};">{{ t.amountLabel }}</div>
+                  <div style="font-size: 13px; line-height: 1.5; color: {{ t.subFg }}; margin-top: 8px;">{{ t.label }}</div>
+                </div>
+                <div style="width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid {{ t.dot }}; background: {{ t.dotFill }}; flex: none;"></div>
+              </button>
+            </sc-for>
+          </div>
+          <div style="margin-top: 26px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px;">
+            <input placeholder="First name" style="font-family: Archivo, sans-serif; font-size: 14px; padding: 15px 16px; border: 1px solid #D8D2C4; background: #F6F3EC; color: #0E1518;" />
+            <input placeholder="Last name" style="font-family: Archivo, sans-serif; font-size: 14px; padding: 15px 16px; border: 1px solid #D8D2C4; background: #F6F3EC; color: #0E1518;" />
+            <input placeholder="Email" style="grid-column: span 2; font-family: Archivo, sans-serif; font-size: 14px; padding: 15px 16px; border: 1px solid #D8D2C4; background: #F6F3EC; color: #0E1518;" />
+            <input placeholder="Dedicate this gift to a K-9 (optional)" style="grid-column: span 2; font-family: Archivo, sans-serif; font-size: 14px; padding: 15px 16px; border: 1px solid #D8D2C4; background: #F6F3EC; color: #0E1518;" />
+          </div>
+          <button style="margin-top: 22px; width: 100%; background: var(--accent); color: #0E1518; border: none; font-family: Archivo, sans-serif; font-weight: 700; font-size: 13.5px; letter-spacing: 0.14em; text-transform: uppercase; padding: 19px; cursor: pointer;" style-hover="background: #D9A94F;">{{ ctaLabel }}</button>
+          <div style="font-size: 12px; color: #6C7A75; margin-top: 16px; line-height: 1.6;">Tax-deductible &middot; EIN 33-4254915 &middot; Cancel a monthly gift any time by emailing us.</div>
+        </div>
+        <div>
+          <div style="height: 300px; position: relative; margin-bottom: 34px;">
+            <image-slot style="min-width: 0" id="donate-photo" src="uploads/11062b_4ff5de527464446d94782c9fd9c48478~mv2.avif" shape="rect" fit="cover" placeholder="Photo"></image-slot>
+          </div>
+          <h3 style="font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 32px; line-height: 1.15; margin: 0 0 18px; color: #0E1518;">Where your money goes</h3>
+          <div style="display: grid; gap: 2px; background: #E3DED2; border: 1px solid #E3DED2;">
+            <sc-for list="{{ allocation }}" as="a" hint-placeholder-count="3">
+              <div style="background: #FFFDF8; padding: 18px 20px; display: flex; justify-content: space-between; gap: 16px; align-items: center;">
+                <div style="font-size: 14px; color: #3D4A46;">{{ a.label }}</div>
+                <div style="font-family: 'Instrument Serif', Georgia, serif; font-size: 24px; color: #0E1518;">{{ a.pct }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="margin-top: 26px; font-size: 14px; line-height: 1.7; color: #3D4A46;">Other ways to give: mail a check to 49 Third Avenue, Chula Vista, CA, or ask your employer about matching. Corporate sponsorship inquiries welcome at <a href="mailto:scca@southcountyca.org">scca@southcountyca.org</a>.</div>
+        </div>
+      </div>
+    </section>
+  </div>
+  </sc-if>
+
+  <!-- ============ MEDIA ============ -->
+  <sc-if value="{{ isMedia }}" hint-placeholder-val="{{ false }}">
+  <div>
+    <section style="background: #0E1518; padding: 84px 32px 72px;">
+      <div style="max-width: 1240px; margin: 0 auto;">
+        <div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 22px;">Press &amp; supporters</div>
+        <h1 style="font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 62px; line-height: 1.02; margin: 0; color: #F6F3EC;">In the media</h1>
+      </div>
+    </section>
+    <section style="background: #F6F3EC; padding: 64px 32px 88px;">
+      <div style="max-width: 1240px; margin: 0 auto; display: grid; gap: 2px; background: #E3DED2; border: 1px solid #E3DED2;">
+        <sc-for list="{{ press }}" as="p" hint-placeholder-count="4">
+          <a href="#" style="background: #FFFDF8; padding: 30px 32px; display: grid; grid-template-columns: 190px minmax(0, 1fr) 120px; gap: 32px; align-items: center; text-decoration: none;" style-hover="background: #F1EDE2;">
+            <div style="font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #8A6A2C; font-weight: 600;">{{ p.outlet }}</div>
+            <div style="font-family: 'Instrument Serif', Georgia, serif; font-size: 26px; line-height: 1.25; color: #0E1518;">{{ p.headline }}</div>
+            <div style="font-size: 12.5px; color: #6C7A75; text-align: right;">{{ p.date }}</div>
+          </a>
+        </sc-for>
+      </div>
+    </section>
+    <section style="background: #FFFDF8; border-top: 1px solid #E3DED2; padding: 84px 32px 104px;">
+      <div style="max-width: 1240px; margin: 0 auto;">
+        <div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: #8A6A2C; font-weight: 600; margin-bottom: 30px;">Community supporters</div>
+        <div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 20px;">
+          <sc-for list="{{ sponsors }}" as="s" hint-placeholder-count="10">
+            <div style="border: 1px solid #E3DED2; height: 108px; display: grid; place-items: center; padding: 16px; text-align: center; font-size: 12.5px; color: #6C7A75; background: #F6F3EC;">{{ s }}</div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+  </div>
+  </sc-if>
+
+  <footer style="background: #0E1518; border-top: 1px solid rgba(185,138,62,0.28); padding: 72px 32px 40px;">
+    <div style="max-width: 1240px; margin: 0 auto;">
+      <div style="display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr); gap: 56px;">
+        <div>
+          <div style="font-family: 'Instrument Serif', Georgia, serif; font-size: 30px; line-height: 1.2; color: #F6F3EC; max-width: 340px;">Taking care of those who took care of us.</div>
+          <div style="font-size: 13px; line-height: 1.7; color: rgba(246,243,236,0.56); margin-top: 22px; max-width: 340px;">South County Canine Association is a 501(c)(3) nonprofit. EIN 33-4254915. Contributions are tax-deductible; tax letters available on request.</div>
+        </div>
+        <div>
+          <div style="height: 132px; width: 132px; position: relative; margin-bottom: 26px; border: 1px solid rgba(246,243,236,0.18);">
+            <image-slot id="scca-logo-full" shape="rect" fit="contain" placeholder="Drop the SCCA logo here"></image-slot>
+          </div>
+          <div style="font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 18px;">Pages</div>
+          <div style="display: grid; gap: 10px;">
+            <sc-for list="{{ nav }}" as="item" hint-placeholder-count="5">
+              <button onClick="{{ item.go }}" style="background: none; border: none; padding: 0; text-align: left; font-family: Archivo, sans-serif; font-size: 14px; color: rgba(246,243,236,0.7); cursor: pointer;" style-hover="color: #F6F3EC;">{{ item.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+        <div>
+          <div style="font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 18px;">Contact</div>
+          <div style="display: grid; gap: 10px; font-size: 14px; color: rgba(246,243,236,0.7); line-height: 1.6;">
+            <a href="mailto:scca@southcountyca.org">scca@southcountyca.org</a>
+            <div>49 Third Avenue<br />Chula Vista, CA 91910</div>
+            <a href="https://www.instagram.com/k9_scca/">Instagram @k9_scca</a>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top: 56px; padding-top: 24px; border-top: 1px solid rgba(246,243,236,0.1); display: flex; justify-content: space-between; gap: 24px; font-size: 12px; color: rgba(246,243,236,0.4);">
+        <div>&copy; 2026 South County Canine Association. All rights reserved.</div>
+        <div>Chula Vista, California</div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;heroTone&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Honor&quot;,&quot;Warm&quot;,&quot;Urgent&quot;],&quot;default&quot;:&quot;Honor&quot;,&quot;tsType&quot;:&quot;'Honor' | 'Warm' | 'Urgent'&quot;,&quot;section&quot;:&quot;Brand&quot;},&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;options&quot;:[&quot;#B98A3E&quot;,&quot;#8C6239&quot;,&quot;#3F5B52&quot;,&quot;#9C3B2E&quot;],&quot;default&quot;:&quot;#B98A3E&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Brand&quot;}}">
+const ACCENT = '#B98A3E';
+
+const PAGES = [
+  ['home', 'Home'], ['k9s', 'K-9s'], ['memoriam', 'In Memoriam'], ['donate', 'Donate'], ['media', 'In the Media'],
+];
+
+const TONES = {
+  Honor: {
+    eyebrow: 'Retired police K-9s · South San Diego County',
+    head: 'They gave every working year they had. Retirement shouldn\u2019t cost them their health.',
+    sub: 'SCCA pays the veterinary bills of retired police K-9s so the handlers who took them home never have to choose between a mortgage and a surgery.',
+  },
+  Warm: {
+    eyebrow: 'Off duty, finally',
+    head: 'The last watch is over. Now they just get to be dogs.',
+    sub: 'Backyards instead of building searches. We cover the vet care that keeps these retired police K-9s comfortable for every year they have left.',
+  },
+  Urgent: {
+    eyebrow: 'One emergency can cost $20,000',
+    head: 'A bloat surgery at 2 a.m. costs more than his handler makes in three months.',
+    sub: 'Retired police K-9s are large, deep-chested, hard-worked dogs. When the emergency comes, SCCA pays the vet directly \u2014 same night, no fundraiser.',
+  },
+};
+
+const FEATURED = [
+  { name: 'Chon', breed: 'Belgian Malinois', agency: 'Chula Vista Police Dept.', status: 'Needs care', need: 'Joint and hip support after years of patrol work. Monthly medication plus physical therapy.', raised: '$4,200', goal: '$6,000', pct: '70%', slot: 'v1-chon', slotHint: 'Photo of Chon', src: 'uploads/chon.avif' },
+  { name: 'Cooper', breed: 'Labrador Retriever', agency: 'Chula Vista Police Dept.', status: 'Ongoing support', need: 'Routine wellness care and bloodwork, plus treatment for age-related arthritis.', raised: '$1,900', goal: '$2,500', pct: '76%', slot: 'v1-cooper', slotHint: 'Photo of Cooper', src: 'uploads/cooper.avif' },
+  { name: 'Rocco', breed: 'Belgian Malinois', agency: 'Chula Vista Police Dept.', status: 'Surgery scheduled', need: 'Orthopedic surgery on a stifle injured in service, followed by a full course of rehab.', raised: '$5,400', goal: '$9,000', pct: '60%', slot: 'v1-rocco', slotHint: 'Photo of Rocco', src: 'uploads/Rocco.avif' },
+];
+
+const ROSTER = FEATURED.map(function (d) { return Object.assign({ years: 'Retired' }, d); });
+
+const MEMORIAL = [
+  { name: 'Nero', years: '2011 \u2013 2024', agency: 'Chula Vista Police Dept.', note: 'Nine years on patrol. Six years on a couch.', slot: 'mem-nero', slotHint: 'Photo of Nero' },
+  { name: 'Tank', years: '2010 \u2013 2023', agency: 'National City Police Dept.', note: 'Narcotics detection. Retired to his handler\u2019s family.', slot: 'mem-tank', slotHint: 'Photo of Tank' },
+  { name: 'Boomer', years: '2009 \u2013 2022', agency: 'San Diego County Sheriff', note: 'Two Medal of Valor deployments.', slot: 'mem-boomer', slotHint: 'Photo of Boomer' },
+  { name: 'Ranger', years: '2012 \u2013 2025', agency: 'Coronado Police Dept.', note: 'Explosives detection. Slept on the porch to the end.', slot: 'mem-ranger', slotHint: 'Photo of Ranger' },
+  { name: 'Zeus', years: '2008 \u2013 2021', agency: 'Chula Vista Police Dept.', note: 'The first K-9 SCCA ever helped.', slot: 'mem-zeus', slotHint: 'Photo of Zeus' },
+  { name: 'Molly', years: '2013 \u2013 2025', agency: 'Imperial Beach', note: 'Tracking. Retired with her handler in 2023.', slot: 'mem-molly', slotHint: 'Photo of Molly' },
+];
+
+const TIERS = [
+  { amount: 25, label: 'Prescription refills for one dog' },
+  { amount: 35, label: 'A month of joint medication and supplements' },
+  { amount: 100, label: 'A full wellness exam and bloodwork' },
+  { amount: 250, label: 'Dental surgery co-pay for a working-age retiree' },
+];
+
+class Component extends DCLogic {
+  state = { page: 'home', freq: 'monthly', amount: 35 };
+
+  go(page) {
+    return () => {
+      this.setState({ page: page });
+      if (typeof window !== 'undefined') window.scrollTo(0, 0);
+    };
+  }
+
+  renderVals() {
+    const accent = this.props.accentColor || ACCENT;
+    const tone = TONES[this.props.heroTone] || TONES.Honor;
+    const page = this.state.page;
+    const freq = this.state.freq;
+    const amount = this.state.amount;
+
+    return {
+      accent: accent,
+      heroEyebrow: tone.eyebrow,
+      heroHead: tone.head,
+      heroSub: tone.sub,
+
+      isHome: page === 'home',
+      isK9s: page === 'k9s',
+      isMemoriam: page === 'memoriam',
+      isDonate: page === 'donate',
+      isMedia: page === 'media',
+
+      nav: PAGES.map(([id, label]) => ({
+        label: label,
+        go: this.go(id),
+        color: page === id ? '#F6F3EC' : 'rgba(246,243,236,0.62)',
+        rule: page === id ? accent : 'transparent',
+      })),
+      goHome: this.go('home'),
+      goK9s: this.go('k9s'),
+      goDonate: this.go('donate'),
+
+      stats: [
+        { value: '$148K', label: 'in veterinary bills paid on behalf of retired K-9s' },
+        { value: '31', label: 'retired police K-9s supported since 2023' },
+        { value: '9', label: 'partner law-enforcement agencies across South County' },
+        { value: '100%', label: 'volunteer-run \u2014 no salaries, no overhead' },
+      ],
+      costs: [
+        { name: 'Bloat (GDV) surgery', note: 'Emergency, same-night \u2014 common in deep-chested breeds', cost: '$20,000' },
+        { name: 'Cruciate ligament repair', note: 'Orthopedic surgery plus rehab', cost: '$7,500' },
+        { name: 'Dental extractions', note: 'Routine after years of bite work', cost: '$2,400' },
+        { name: 'Joint medication', note: 'Per dog, per year, for life', cost: '$1,100' },
+      ],
+      featured: FEATURED,
+      roster: ROSTER,
+      memorial: MEMORIAL,
+      agencies: ['Chula Vista PD', 'National City PD', 'San Diego County Sheriff', 'Coronado PD', 'Imperial Beach', 'Harbor Police', 'La Mesa PD', 'El Cajon PD', 'CA State Parks'],
+
+      setMonthly: () => this.setState({ freq: 'monthly' }),
+      setOnce: () => this.setState({ freq: 'once' }),
+      monthlyBg: freq === 'monthly' ? '#0E1518' : '#FFFDF8',
+      monthlyFg: freq === 'monthly' ? '#F6F3EC' : '#6C7A75',
+      onceBg: freq === 'once' ? '#0E1518' : '#FFFDF8',
+      onceFg: freq === 'once' ? '#F6F3EC' : '#6C7A75',
+      ctaLabel: freq === 'monthly' ? 'Give $' + amount + ' every month' : 'Give $' + amount + ' once',
+      tiers: TIERS.map((t) => {
+        const on = t.amount === amount;
+        return {
+          amountLabel: '$' + t.amount + (freq === 'monthly' ? '/mo' : ''),
+          label: t.label,
+          pick: () => this.setState({ amount: t.amount }),
+          bg: on ? '#0E1518' : '#F6F3EC',
+          border: on ? '#0E1518' : '#E3DED2',
+          fg: on ? '#F6F3EC' : '#0E1518',
+          subFg: on ? 'rgba(246,243,236,0.66)' : '#6C7A75',
+          dot: on ? accent : '#C9C2B2',
+          dotFill: on ? accent : 'transparent',
+        };
+      }),
+      allocation: [
+        { label: 'Direct veterinary care & medication', pct: '92%' },
+        { label: 'Payment processing', pct: '5%' },
+        { label: 'Outreach materials & events', pct: '3%' },
+      ],
+      press: [
+        { outlet: 'NBC 7 San Diego', headline: 'Chula Vista nonprofit steps in when retired police dogs need surgery', date: 'Mar 2026' },
+        { outlet: 'The Star-News', headline: '\u201CHe protected this city for nine years\u201D: inside SCCA\u2019s first year', date: 'Nov 2025' },
+        { outlet: 'KPBS Midday Edition', headline: 'Who pays the vet bill after a K-9 retires?', date: 'Aug 2025' },
+        { outlet: 'Fox 5 San Diego', headline: 'Retired K-9 Rocco walks again after community fundraiser', date: 'Feb 2025' },
+      ],
+      sponsors: ['Sponsor logo', 'Sponsor logo', 'Sponsor logo', 'Sponsor logo', 'Sponsor logo', 'Sponsor logo', 'Sponsor logo', 'Sponsor logo', 'Sponsor logo', 'Sponsor logo'],
+    };
+  }
+}
+
+</script>
+</body>
+</html>
