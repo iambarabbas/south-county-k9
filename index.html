@@ -32,6 +32,9 @@ img{max-width:100%}
 .nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 @media(max-width:768px){
   header>div{padding-top:8px!important;padding-bottom:8px!important}
+  section{padding-top:36px!important}
+  #hero-img{order:-1}
+  #ein-badge{display:none!important}
   .nav-toggle{display:flex}
   #main-nav{order:3;flex:0 0 100%;flex-direction:column;align-items:stretch;margin-left:0!important;overflow-x:visible!important;display:none!important;padding:4px 0 10px;border-top:1px solid #E3E4D8;gap:1px}
   #main-nav.open{display:flex!important}
@@ -75,7 +78,7 @@ img{max-width:100%}
 <section style="padding:76px clamp(18px,4vw,32px) 84px">
   <div style="max-width:1260px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:clamp(32px,5vw,72px);align-items:center">
     <div>
-      <div style="display:inline-flex;align-items:center;gap:9px;background:#E9EEE5;border-radius:999px;padding:8px 15px 8px 12px;margin-bottom:30px">
+      <div id="ein-badge" style="display:inline-flex;align-items:center;gap:9px;background:#E9EEE5;border-radius:999px;padding:8px 15px 8px 12px;margin-bottom:30px">
         <div style="width:7px;height:7px;border-radius:50%;background:#C98A22"></div>
         <div style="font-size:12.5px;font-weight:600">501(c)(3) Nonprofit &middot; EIN 33-4254915</div>
       </div>
@@ -90,7 +93,7 @@ img{max-width:100%}
         <div>Serving Chula Vista &amp; National City law enforcement</div>
       </div>
     </div>
-    <div style="position:relative">
+    <div id="hero-img" style="position:relative">
       <div style="height:clamp(320px,52vw,560px);border-radius:20px;overflow:hidden">
         <img src="/south-county-k9/uploads/IMG_3620_heic.avif" alt="Retired police K-9" style="width:100%;height:100%;object-fit:cover;display:block">
       </div>
